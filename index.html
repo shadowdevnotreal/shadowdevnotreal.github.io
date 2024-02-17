@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow Dev not real</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .bg {
+    background-image: url(https://github.com/shadowdevnotreal/shadowdevnotreal/blob/main/20240205_094928.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Keyframes for smoke and typewriter effects */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  .smoke-text {
+    font-size: 2rem;
+    color: #FFF;
+    animation: fadeIn 5s 1 forwards, fadeOut 5s 1 forwards 10s;
+    white-space: nowrap;
+    margin-bottom: 20px;
+  }
+
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  @keyframes blinkCursor {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
+  }
+
+  .typewriter h2, .click-prompt h2 {
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    border-right: .15em solid white;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    font-size: 1.5rem;
+    color: #FFF;
+  }
+
+  .typewriter h2 {
+    animation: typewriter 4s steps(60, end) 5s 1 forwards,
+               fadeOut 5s 1 forwards 15s;
+  }
+
+  /* New typewriter effect for click prompt */
+  .click-prompt h2 {
+    animation: fadeInOut 5s infinite;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .enter-button {
+    background-image: linear-gradient(to right, #6e48aa, #9d50bb);
+    color: #FFF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .enter-button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="smoke-text">Shadow Dev not real</div>
+  <div class="typewriter">
+    <h2>I'm a script Kitty and enjoy my code.</h2>
+  </div>
+  <!-- New typewriter effect for click prompt -->
+  <div class="click-prompt">
+    <h2>Click the button below.</h2>
+  </div>
+  <button class="enter-button" onclick="location.href='https://github.com/SHADOWDEVNOTREAL';">Click here to enter the skid</button>
+</div>
+
+</body>
+</html>
