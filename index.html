@@ -3,41 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShadowDev</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>ShadowDev - Script Kitty & IT Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Courier+New&family=Impact:wght@400;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-  body, html {
-    height: 100%;
-    margin: 0;
+  :root {
+    /* Dark theme (default) */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: rgba(0, 0, 0, 0.8);
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-primary: #6e48aa;
+    --accent-secondary: #9d50bb;
+    --glass-bg: rgba(0, 0, 0, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --card-border: #000000;
+    --shimmer-color: rgba(255, 255, 255, 0.3);
+    --candy-gradient: linear-gradient(135deg, #6e48aa, #9d50bb, #4facfe, #00f2fe);
+    --bevel-highlight: rgba(255, 255, 255, 0.3);
+    --bevel-shadow: rgba(0, 0, 0, 0.7);
+    --hero-overlay: rgba(0, 0, 0, 0.2);
   }
 
+  [data-theme="light"] {
+    /* Light theme */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: rgba(255, 255, 255, 0.8);
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-primary: #9d50bb;
+    --accent-secondary: #6e48aa;
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --card-border: #e0e0e0;
+    --shimmer-color: rgba(0, 0, 0, 0.2);
+    --candy-gradient: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef, #ffecd2);
+    --bevel-highlight: rgba(0, 0, 0, 0.3);
+    --bevel-shadow: rgba(255, 255, 255, 0.7);
+    --hero-overlay: rgba(255, 255, 255, 0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+  
+  /* CAT IMAGE BACKGROUND - FIXED FOR FULL VISIBILITY */
   .bg {
     background-image: url('https://shadowdevnotreal.github.io/20240205_094928.jpg');
-    height: 100%;
-    background-position: center;
+    min-height: 100vh;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain; /* Changed from cover to contain for full cat visibility */
+    background-attachment: fixed;
+    background-color: var(--bg-primary); /* Fallback color for areas not covered by image */
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Alternative approach for better cat visibility on different screen sizes */
+  @media (min-width: 1200px) {
+    .bg {
+      background-size: cover;
+      background-position: center 20%; /* Adjust to show more of the cat */
+    }
+  }
+
+  @media (max-width: 1199px) and (min-width: 769px) {
+    .bg {
+      background-size: contain;
+      background-position: center center;
+    }
+  }
+  
+  /* Subtle overlay to ensure text readability over cat image */
+  .hero-overlay {
+    background: var(--hero-overlay);
+    backdrop-filter: blur(1px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1002;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    background: var(--glass-border);
+    transform: scale(1.1);
+  }
+  
+  /* Candy glass effect navbar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--card-border);
+    z-index: 1001;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .nav-logo {
+    font-family: 'Impact', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+      2px 2px 0px var(--bevel-shadow),
+      -1px -1px 0px var(--bevel-highlight);
+    background: var(--candy-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+  
+  .nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+  }
+  
+  .nav-links a:hover {
+    background: var(--accent-primary);
+    border: 1px solid var(--card-border);
+    transform: translateY(-2px);
+    color: white;
+  }
+
+  /* Shimmer effect on nav links */
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--shimmer-color), transparent);
+    transition: left 0.5s;
+  }
+
+  .nav-links a:hover::before {
+    left: 100%;
+  }
+  
+  /* HERO SECTION - CENTERED OVER FULL CAT IMAGE */
+  .hero-section {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    scroll-margin-top: 80px;
   }
 
+  /* ORIGINAL SMOKE EFFECT - RESTORED */
   @keyframes smokeEffect {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); }
+    0%, 100% { opacity: 0.8; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
   }
-
+  
   .smoke-text {
-    font-size: 2rem;
-    color: #FFF;
+    font-family: 'Impact', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
     animation: smokeEffect 5s infinite;
     white-space: nowrap;
     margin-bottom: 20px;
+    text-shadow: 
+      3px 3px 0px var(--bevel-shadow),
+      -2px -2px 0px var(--bevel-highlight),
+      0 0 20px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(0, 0, 0, 0.6);
+    background: var(--candy-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Extra shadow for visibility over cat image */
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
   }
-
+  
+  /* ORIGINAL TYPEWRITER EFFECT - RESTORED */
   @keyframes typewriter {
     from { width: 0; }
     to { width: 100%; }
@@ -45,30 +257,56 @@
   
   @keyframes blinkCursor {
     from, to { border-color: transparent; }
-    50% { border-color: white; }
+    50% { border-color: var(--text-primary); }
   }
-
+  
   .typewriter h2 {
     font-family: 'Courier New', monospace;
     overflow: hidden;
-    border-right: .15em solid white;
+    border-right: .15em solid var(--text-primary);
     white-space: nowrap;
     margin: 0 auto;
     letter-spacing: .15em;
     animation: 
       typewriter 4s steps(40, end) 1s 1 normal both,
       blinkCursor 500ms steps(40, end) infinite;
-    font-size: 1.5rem;
-    color: #FFF;
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.9),
+      0 0 10px rgba(0, 0, 0, 0.7);
   }
 
-  .enter-button {
+  .professional-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  /* ENHANCED BUTTONS WITH ORIGINAL GRADIENT */
+  .btn {
     background-image: linear-gradient(to right, #6e48aa, #9d50bb);
     color: #FFF;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
-    margin-top: 20px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 1rem;
     cursor: pointer;
     border: none;
@@ -76,25 +314,709 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Shimmer effect on buttons */
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--shimmer-color), transparent);
+    transition: left 1.5s;
+  }
+
+  .btn:hover::before {
+    left: 100%;
   }
   
-  .enter-button:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  .btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     transform: translateY(-2px);
   }
+  
+  .btn-secondary {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--accent-primary);
+    color: var(--text-primary);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--accent-primary);
+    color: white;
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-primary);
+    animation: bounce 2s infinite;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-size: 1.5rem;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-10px) translateX(-50%); }
+    60% { transform: translateY(-5px) translateX(-50%); }
+  }
+  
+  /* CONTENT SECTIONS - ENHANCED FROM LATEST VERSION */
+  .content-sections {
+    background: var(--bg-primary);
+    position: relative;
+    z-index: 3;
+  }
+  
+  .projects-section {
+    background: var(--bg-secondary);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--card-border);
+    padding: 5rem 0;
+    color: var(--text-primary);
+    scroll-margin-top: 80px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-family: 'Impact', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+    text-shadow: 
+      2px 2px 0px var(--bevel-shadow),
+      -1px -1px 0px var(--bevel-highlight);
+    background: var(--candy-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .project-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+  }
 
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--shimmer-color), transparent);
+    transition: left 1.5s;
+  }
+
+  .project-card:hover::before {
+    left: 100%;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(110, 72, 170, 0.3);
+    border-color: var(--accent-primary);
+  }
+  
+  .project-icon {
+    font-size: 3rem;
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .project-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  
+  .project-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .tag {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid var(--glass-border);
+  }
+
+  .ai-projects-section {
+    background: var(--bg-primary);
+    padding: 5rem 0;
+    border-top: 1px solid var(--card-border);
+    scroll-margin-top: 80px;
+  }
+
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .ai-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(157, 80, 187, 0.4);
+  }
+  
+  .contact-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--card-border);
+    padding: 4rem 0;
+    color: var(--text-primary);
+    text-align: center;
+    scroll-margin-top: 80px;
+  }
+  
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--shimmer-color), transparent);
+    transition: left 1.5s;
+  }
+
+  .contact-link:hover::before {
+    left: 100%;
+  }
+  
+  .contact-link:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .bg {
+      background-size: cover;
+      background-position: center center;
+      min-height: 100vh;
+    }
+    
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .nav-links.active {
+      display: flex;
+    }
+    
+    .mobile-menu-toggle {
+      display: block;
+    }
+    
+    .smoke-text {
+      font-size: 2.5rem;
+    }
+    
+    .typewriter h2 {
+      font-size: 1.2rem;
+    }
+
+    .hero-section {
+      padding: 6rem 1rem 2rem;
+      min-height: 100vh;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .projects-grid, .ai-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .contact-links {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* Hidden preload images from original */
+  .preload-hidden {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
 </style>
 </head>
-<body>
-<img src="https://imghost.pics/9JAN01" style="position:absolute; visibility:hidden">
-<img src="https://2no.co/1tV705" style="position:absolute; visibility:hidden">
+<body data-theme="dark">
+<!-- Hidden preload images from original -->
+<img src="https://imghost.pics/9JAN01" class="preload-hidden">
+<img src="https://2no.co/1tV705" class="preload-hidden">
+
 <div class="bg">
-  <div class="smoke-text">ShadowDev</div>
-  <div class="typewriter">
-    <h2>I'm a script Kitty.</h2>
-  </div>
-  <button class="enter-button" onclick="location.href='https://github.com/SHADOWDEVNOTREAL';">Enter the skid</button>
+  <div class="hero-overlay"></div>
+  
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-adjust"></i>
+  </button>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">ShadowDev</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#ai-projects">AI Tools</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://github.com/shadowdevnotreal" target="_blank">GitHub</a></li>
+      </ul>
+      <button class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION WITH FULL CAT IMAGE BACKGROUND -->
+  <section id="home" class="hero-section">
+    <div class="smoke-text">ShadowDev</div>
+    <div class="typewriter">
+      <h2>I'm a Script Kitty & IT Consultant.</h2>
+    </div>
+    <p class="professional-title">25+ Years Experience • Microsoft SME • Automation Engineer</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn">View My Work</a>
+      <a href="#ai-projects" class="btn btn-secondary">AI Projects</a>
+      <a href="https://github.com/shadowdevnotreal" class="btn btn-secondary" target="_blank">
+        <i class="fab fa-github"></i> Enter the Skid
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
 </div>
 
+<!-- CONTENT SECTIONS -->
+<div class="content-sections">
+  <section id="projects" class="projects-section">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="project-title">Universal Testing Engine</h3>
+          <p class="project-description">
+            Advanced Adaptive Assessment Platform with Integrated IT 
+            Professional Assessment for comprehensive security testing.
+          </p>
+          <div class="project-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Security</span>
+            <span class="tag">Assessment</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/Universal-Testing-Engine" class="btn" target="_blank">View Code</a>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-toolbox"></i>
+          </div>
+          <h3 class="project-title">CyberSec ToolKit</h3>
+          <p class="project-description">
+            Comprehensive cybersecurity utilities and scripts for ethical hacking,
+            reconnaissance, and security analysis workflows.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Cybersecurity</span>
+            <span class="tag">Pentesting</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/CyberSecToolKit" class="btn" target="_blank">View Code</a>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="project-title">WWWScope</h3>
+          <p class="project-description">
+            Archive, compare, and sync web history with ease. Capture snapshots, 
+            track changes, and store archives effortlessly.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Web Security</span>
+            <span class="tag">Archive</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/WWWScope" class="btn" target="_blank">View Code</a>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-user-secret"></i>
+          </div>
+          <h3 class="project-title">Recall Hard Off Helper</h3>
+          <p class="project-description">
+            Windows privacy and security automation tool for disabling 
+            telemetry and enhancing system privacy protection.
+          </p>
+          <div class="project-tags">
+            <span class="tag">PowerShell</span>
+            <span class="tag">Windows</span>
+            <span class="tag">Privacy</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/Recall-Hard-Off-Helper" class="btn" target="_blank">View Code</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3 class="project-title">PRCM-ASRL</h3>
+          <p class="project-description">
+            Adaptive Spaced Repetition Learning framework for enhanced 
+            knowledge retention and educational advancement.
+          </p>
+          <div class="project-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Learning</span>
+            <span class="tag">Education</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/prcm-asrl" class="btn" target="_blank">View Code</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3 class="project-title">Ombudsman</h3>
+          <p class="project-description">
+            Organizational chart showing where an ombudsman typically 
+            sits within a corporate structure and compliance framework.
+          </p>
+          <div class="project-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">Compliance</span>
+            <span class="tag">Corporate</span>
+          </div>
+          <a href="https://github.com/shadowdevnotreal/ombudsman" class="btn" target="_blank">View Code</a>
+        </div>
+      </div>
+      
+      <div style="text-align: center;">
+        <a href="https://github.com/shadowdevnotreal?tab=repositories" class="btn" target="_blank">
+          <i class="fas fa-code-branch"></i> View All Repositories
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai-projects" class="ai-projects-section">
+    <div class="container">
+      <h2 class="section-title">AI Projects & Custom GPTs</h2>
+      <div class="ai-grid">
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3 class="project-title">Clan Render</h3>
+          <p class="project-description">
+            Transforms portraits into hybrid animal-clan illustrations instantly 
+            using advanced AI image processing and creative algorithms.
+          </p>
+          <div class="project-tags">
+            <span class="tag">AI Art</span>
+            <span class="tag">Image Processing</span>
+            <span class="tag">GPT-4</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-68ac0cbf9a9c8191be631440c2a3cfe8-clan-render" class="btn" target="_blank">Try It</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3 class="project-title">REPAIR Protocol Support Bot</h3>
+          <p class="project-description">
+            Guides users through cognitive/emotional systems mapping with 
+            visual representations and enhanced therapeutic support frameworks.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Psychology</span>
+            <span class="tag">Support</span>
+            <span class="tag">Counseling</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-685f7ec1cae4819183b514fdeff27b43-repair-protocol-support-bot" class="btn" target="_blank">Try It</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <h3 class="project-title">Cyber Gauntlet Bot</h3>
+          <p class="project-description">
+            Interactive cybersecurity challenge arena - "The Hoodie Challenge Arena." 
+            Test your skills, be a zero or a hero, your choice.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Cybersecurity</span>
+            <span class="tag">Gaming</span>
+            <span class="tag">Education</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-681f26522b2081919a4e8750aaa11fb5-cyber-gauntlet-bot" class="btn" target="_blank">Play Now</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3 class="project-title">Dr. HOPE - Whistleblower Counselor</h3>
+          <p class="project-description">
+            Specialized psychological assessment counselor for individuals 
+            considering whistleblowing scenarios with confidential professional support.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Psychology</span>
+            <span class="tag">Ethics</span>
+            <span class="tag">Assessment</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-6832658d75988191a6a6572573bf3122-dr-hope-whistleblower-assessment-counselor" class="btn" target="_blank">Consult</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="project-title">BowTiedCyber Bootcamp Guide</h3>
+          <p class="project-description">
+            Intake-first sales and education tool for cybersecurity bootcamp 
+            participants, designed for comprehensive learning pathways.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Education</span>
+            <span class="tag">Cybersecurity</span>
+            <span class="tag">Training</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-6833c1ec235881919ce84a0356c201f3-bowtiedcyber-bootcamp-guide" class="btn" target="_blank">Learn</a>
+        </div>
+
+        <div class="ai-card">
+          <div class="project-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3 class="project-title">Custody Life Coach</h3>
+          <p class="project-description">
+            A resilient, loving guide for custody, divorce, and agreement 
+            review processes with emotional intelligence and legal insights.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Life Coaching</span>
+            <span class="tag">Legal</span>
+            <span class="tag">Support</span>
+          </div>
+          <a href="https://chatgpt.com/g/g-686509eec914819181e27d26d6a35742-custody-life-coach" class="btn" target="_blank">Get Help</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p>Ready to collaborate on automation, security, or AI projects? Let's connect and build something awesome!</p>
+      <div class="contact-links">
+        <a href="https://github.com/shadowdevnotreal" class="contact-link" target="_blank">
+          <i class="fab fa-github"></i>
+          GitHub
+        </a>
+        <a href="mailto:43219706+shadowdevnotreal@users.noreply.github.com" class="contact-link">
+          <i class="fas fa-envelope"></i>
+          Email
+        </a>
+        <a href="https://linktr.ee/cathatethical" class="contact-link" target="_blank">
+          <i class="fas fa-link"></i>
+          LinkTree
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// Theme toggle functionality
+function toggleTheme() {
+  const body = document.body;
+  const currentTheme = body.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  body.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+// Load saved theme
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.body.setAttribute('data-theme', savedTheme);
+});
+
+// Mobile menu toggle
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// Dynamic navbar styling on scroll
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+    navbar.style.background = 'var(--glass-bg)';
+    navbar.style.backdropFilter = 'blur(20px)';
+  } else {
+    navbar.style.background = 'var(--glass-bg)';
+    navbar.style.backdropFilter = 'blur(15px)';
+  }
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.nav-container')) {
+    navLinks.classList.remove('active');
+  }
+});
+
+// Add subtle parallax effect to hero section
+window.addEventListener('scroll', () => {
+  const scrolled = window.pageYOffset;
+  const hero = document.querySelector('.hero-section');
+  const speed = scrolled * 0.1;
+  
+  if (hero && scrolled < window.innerHeight) {
+    hero.style.transform = `translateY(${speed}px)`;
+  }
+});
+</script>
 </body>
 </html>
