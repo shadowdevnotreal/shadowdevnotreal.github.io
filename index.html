@@ -151,7 +151,7 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 3px;
-    text-shadow: 2px 2px 6px var(--bevel-shadow);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 2px 2px 6px var(--bevel-shadow);
     background: var(--candy-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -159,6 +159,10 @@
     transition: all 0.3s ease;
     animation: breathingLogo 4s ease-in-out infinite;
     display: inline-block;
+  }
+
+  [data-theme="light"] .nav-logo {
+    text-shadow: 3px 3px 0px var(--bevel-shadow), -2px -2px 0px var(--bevel-highlight);
   }
 
   .nav-logo:hover {
@@ -478,12 +482,16 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     margin-bottom: 3rem;
-    text-shadow: 2px 2px 6px var(--bevel-shadow);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 2px 2px 6px var(--bevel-shadow);
     background: var(--candy-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     position: relative;
+  }
+
+  [data-theme="light"] .section-title {
+    text-shadow: 3px 3px 0px var(--bevel-shadow), -2px -2px 0px var(--bevel-highlight);
   }
 
   .section-title::after {
